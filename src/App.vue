@@ -4,21 +4,20 @@
       <h1>What's the Weather Right Now?</h1>
       <div class="city-container">
         <p 
-          :class="{active: activeCity === city}" 
-          @click="setActiveCity(city.name, city.key)" 
+          :class="{active: activeCity === city.name}" 
+          @click="setActiveCity(city.name)" 
           v-for="city in cities" 
           :key="city.key"
         >{{city.name}}</p>
       </div>
       <div v-if="activeCity" class="city-card">
         <city-card 
+          v-if="cityData"
+          :city-data="cityData"
           :city-name="cityName" 
-          :city-forecast="cityForecast" 
-          :city-temp="cityTemp" 
-          :city-feels-like="cityFeelsLike"
-          :city-country="cityCountry"
-          :city-sunrise="citySunrise"
-          :city-sunset="citySunset"
+          :active-city="activeCity"
+          :forecast-shown="forecastShown"
+          @toggle-forecast="toggleShown"
         />
       </div>
       <div v-else>
@@ -35,63 +34,39 @@ export default {
   data() {
     return {
       cities: [
-        { name: 'Denver', key: 5419384 },
-        { name: 'Hurley', key: 5121679 },
-        { name: 'Berlin', key: 2950159 },
-        { name: 'Calgary', key: 5913490 },
-        { name: 'Doha', key: 290030 },
+        { name: 'Denver', key: 1 },
+        { name: 'Helsinki', key: 2 },
+        { name: 'Berlin', key: 3 },
+        { name: 'Calgary', key: 4 },
+        { name: 'Doha', key: 5 },
       ],
       activeCity: null,
       cityData: null,
       cityName: '',
-      cityForecast: '',
-      cityTemp: '',
-      cityFeelsLike: '',
-      cityCountry: '',
-      citySunrise: '',
-      citySunset: ''
+      forecastShown: false
     }
   },
   methods: {
-    setActiveCity(city, key) {
+    setActiveCity(city) {
       this.activeCity = city;
-      const id = key;
-
-      this.getWeatherData(this.activeCity, id);
+      this.getWeatherData(this.activeCity);
+      
+      this.forecastShown = false;
     },
-    handleSets(time, type) {
-      let unix_timestamp = time;
-      var date = new Date(unix_timestamp * 1000);
-      var hours = date.getHours();
-      var minutes = "0" + date.getMinutes();
-      var seconds = "0" + date.getSeconds();
-      var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-
-      if (type === 'rise') {
-        this.citySunrise = formattedTime;
-      } else {
-        this.citySunset = formattedTime;
-      }
-    },
-    getWeatherData(city, key) {
-      fetch('https://api.openweathermap.org/data/2.5/weather?id=' + key + '&units=imperial&appid=6e433fd4f34c477e8ebec3208ff603ad')
+    getWeatherData(city) {
+      fetch('http://api.weatherapi.com/v1/forecast.json?key=e85990e0dbe94f858c583246213112&q=' + city + '&days=3&aqi=no&alerts=no')
       .then(function(resp) { return resp.json() })
       .then(data => {
         console.log(data);
         this.cityData = data;
         this.cityName = city;
-        this.cityForecast = data.weather[0].description;
-        this.cityTemp = Math.round(data.main.temp);
-        this.cityFeelsLike = Math.round(data.main.feels_like);
-        this.cityCountry = data.sys.country;
-
-        this.handleSets(data.sys.sunrise, 'rise')
-        this.handleSets(data.sys.sunset, 'set');
-
       })
       .catch(function(error) {
         console.log(error);
       });
+    },
+    toggleShown() {
+      this.forecastShown = !this.forecastShown;
     }
   }
 }
@@ -106,6 +81,15 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+ button {
+    border: none;
+    background-color: dodgerblue;
+    margin: 20px 0 0 5px;
+    color: #fff;
+    border-radius: 20px;
+    padding: 8px 10px;
+  }
 
 .city-container {
   display: flex;
