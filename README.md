@@ -24,3 +24,4 @@ yarn lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 # current-weather-project
 # current-weather-extended-project
+# current-weather-extended-project
