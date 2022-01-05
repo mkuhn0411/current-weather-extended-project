@@ -34,16 +34,7 @@ export default {
     },
     inject: ['forecastData'],
     mounted() {
-        // this.forecast = this.forecastData;
-        fetch('http://api.weatherapi.com/v1/forecast.json?key=e85990e0dbe94f858c583246213112&q=' + this.currentCity + '&days=3&aqi=no&alerts=no')
-        .then(function(resp) { return resp.json() })
-        .then(data => {
-            console.log(data);
-            this.forecast = data.forecast.forecastday;
-        })
-        .catch(function(error) {
-            console.log(error);
-        });
+        this.forecast = this.forecastData();
     },
 }
 </script>

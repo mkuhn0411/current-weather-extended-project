@@ -65,12 +65,15 @@ export default {
             type: Boolean,
             required: true
         },
-        forecastData: {
-            type: Object,
-            required: true
-        }
+        // forecastData: {
+        //     type: Object,
+        //     required: true
+        // }
     },
     emits: ['toggle-forecast'],
+    // mounted() {
+    //     console.log(this.forecastData)
+    // },
     data() {
         return {
             showForecast: this.forecastShown,
@@ -116,11 +119,11 @@ export default {
             }
         }
     },
-    provide() {
-        return {
-            forecastData: this.forecastData
-        }
-    },
+    // provide() {
+    //     return {
+    //         forecastData: this.forecastData
+    //     }
+    // },
 }
 </script>
 
