@@ -17,6 +17,7 @@
           :city-name="cityName" 
           :active-city="activeCity"
           :forecast-shown="forecastShown"
+          :forecast-data="forecastData"
           @toggle-forecast="toggleShown"
         />
       </div>
@@ -43,7 +44,8 @@ export default {
       activeCity: null,
       cityData: null,
       cityName: '',
-      forecastShown: false
+      forecastShown: false,
+      forecastData: null
     }
   },
   methods: {
@@ -60,6 +62,7 @@ export default {
         console.log(data);
         this.cityData = data;
         this.cityName = city;
+        this.forecastData = data.forecast.forecastday;
       })
       .catch(function(error) {
         console.log(error);
@@ -68,7 +71,8 @@ export default {
     toggleShown() {
       this.forecastShown = !this.forecastShown;
     }
-  }
+  },
+  
 }
 </script>
 

@@ -46,7 +46,7 @@ import CityForecast from './CityForecast.vue';
 
 export default {
     components: {
-        'city-forecast': CityForecast
+        CityForecast
     },
     props: {
         cityName: {
@@ -63,6 +63,10 @@ export default {
         },
         forecastShown: {
             type: Boolean,
+            required: true
+        },
+        forecastData: {
+            type: Object,
             required: true
         }
     },
@@ -112,15 +116,22 @@ export default {
             }
         }
     },
-    // methods: {
-    //     toggleForecast() {
-    //         this.forecastShown = !this.forecastShown;
-    //     }
-    // }
+    provide() {
+        return {
+            forecastData: this.forecastData
+        }
+    },
 }
 </script>
 
-<style>
+<style scoped>
+    section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
     .city-card,
     .additional-info-container,
     .set-sub-container {

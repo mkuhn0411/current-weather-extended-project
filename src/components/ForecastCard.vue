@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .forecast-card-container {
         border: 1px solid rgba(0,0,0,.5);
         margin: 0 5px;
