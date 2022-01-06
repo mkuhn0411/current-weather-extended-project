@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { reactive, provide } from 'vue';
+let forecast = reactive({});
 
 export default {
   name: 'App',
@@ -44,7 +46,7 @@ export default {
       cityData: null,
       cityName: '',
       forecastShown: false,
-      forecastData: null,
+      forecastData: null
     }
   },
   methods: {
@@ -61,8 +63,7 @@ export default {
         console.log(data);
         this.cityData = data;
         this.cityName = city;
-        this.forecastData = data.forecast.forecastday;
-        console.log(this.forecastData)
+        Object.assign(forecast, data.forecast.forecastday)
       })
       .catch(function(error) {
         console.log(error);
@@ -72,10 +73,8 @@ export default {
       this.forecastShown = !this.forecastShown;
     }
   },
-  provide(){
-    return {
-      forecastData: () => this.forecastData
-    }
+  setup() {
+    provide('forecastData', forecast)
   }
   
 }

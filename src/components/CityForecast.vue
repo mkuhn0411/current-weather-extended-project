@@ -3,7 +3,7 @@
         <p>3-Day for {{city}}</p>
         <div class="forecast-container">
             <forecast-card 
-                v-for="dayForecast in forecast"
+                v-for="dayForecast in forecastData"
                 :key="dayForecast.id"
                 :id="dayForecast.id"
                 :date="dayForecast.date"
@@ -33,16 +33,13 @@ export default {
         }
     },
     inject: ['forecastData'],
-    mounted() {
-        this.forecast = this.forecastData();
-    },
 }
 </script>
 
 <style scoped>
     .forecast-container {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
     }
 </style>

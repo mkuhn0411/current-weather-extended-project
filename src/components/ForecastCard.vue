@@ -45,7 +45,8 @@ export default {
                 sun: this.forecast.match(/sunny/i),
                 snow: this.forecast.match(/snow/i),
                 rain: this.forecast.match(/rain/i),
-                cloud: this.forecast.match(/cloudy/i) || this.forecast.match(/clouds/i)
+                cloud: this.forecast.match(/cloudy/i) || this.forecast.match(/clouds/i) || this.forecast.match(/overcast/i),
+                fog: this.forecast.match(/fog/i) || this.forecast.match(/foggy/i)
             }
         }
     }
@@ -91,5 +92,9 @@ export default {
 
     .cloud {
         background-image: url(https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/limUXpxRkuD6qy2M5MWK_cloud.png)
+    }
+
+    .fog {
+        background-image: url(https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/kz6VXYsYR0WLDSduRST9_fog.png)
     }
 </style>
