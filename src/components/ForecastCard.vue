@@ -2,8 +2,19 @@
     <section>
         <div class="forecast-card-container">
             <p class="date">{{ handleDate }}</p>
-            <p>Forecast: {{ forecast }}</p>
+            <p><strong>Forecast:</strong> {{ forecast }}</p>
             <div class="forecast-icon" :class="forecastClass">&nbsp;</div>
+            <p><strong>Temperature:</strong> {{ temp }}°</p>
+            <div class="set-container">
+                <div class="sunrise-container set-sub-container">
+                    <img class="sunrise set-icon" src="https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/04MIVE9CSVSGQZt49knl_sun.png">
+                    <p class="time"> {{ sunrise }} </p>
+                </div>
+                <div class="sunset-container set-sub-container">
+                    <img class="sunset set-icon" src="https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/xT4oZeOQNedZVOuypAlv_moon.png">
+                    <p class="time"> {{ sunset }} </p>
+                </div>
+            </div>
         </div>
     </section>
 </template>
@@ -16,6 +27,18 @@ export default {
             required: true
         },
         forecast: {
+            type: String,
+            required: true
+        },
+        temp: {
+            type: String,
+            required: true
+        },
+        sunrise: {
+            type: String,
+            required: true
+        },
+        sunset: {
             type: String,
             required: true
         }
@@ -57,7 +80,7 @@ export default {
     .forecast-card-container {
         border: 1px solid rgba(0,0,0,.5);
         margin: 0 5px;
-        width: 200px;
+        width: 250px;
     }
 
     .forecast-card-container p {
@@ -96,5 +119,18 @@ export default {
 
     .fog {
         background-image: url(https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/kz6VXYsYR0WLDSduRST9_fog.png)
+    }
+
+    .set-container,
+    .set-sub-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .set-icon {
+        height: 20px;
+        width: auto;
+        margin: 0 5px 0 10px;
     }
 </style>

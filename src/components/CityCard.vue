@@ -65,15 +65,9 @@ export default {
             type: Boolean,
             required: true
         },
-        // forecastData: {
-        //     type: Object,
-        //     required: true
-        // }
+
     },
     emits: ['toggle-forecast'],
-    // mounted() {
-    //     console.log(this.forecastData)
-    // },
     data() {
         return {
             showForecast: this.forecastShown,
@@ -119,11 +113,6 @@ export default {
             }
         }
     },
-    // provide() {
-    //     return {
-    //         forecastData: this.forecastData
-    //     }
-    // },
 }
 </script>
 
@@ -201,6 +190,9 @@ export default {
         height: 20px;
         width: auto;
         margin: 0 0 0 3px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     .image {
