@@ -1,22 +1,19 @@
 <template>
     <div class="city-container">
         <city-selector
-          :class="{active: activeCity === city.name}" 
-          @click="setActiveCity(city.name)" 
+          :class="{active: $store.state.currentCity === city.name}" 
+          @click="addCity(city.name)" 
           v-for="city in cities" 
           :key="city.key"
           :name="city.name"
         />
     </div>
-    <div v-if="activeCity" class="city-card">
-    <city-card 
-        v-if="cityData"
-        :city-data="cityData"
-        :city-name="cityName" 
-        :active-city="activeCity"
-        :forecast-shown="forecastShown"
-        @toggle-forecast="toggleShown"
-    />
+    <div v-if="$store.state.currentCity" class="city-card">
+      <city-card 
+          v-if="forecast"
+          :cityData="forecast"
+          :name="$store.state.currentCity"
+      />
     </div>
     <div v-else>
         <p>Please select a city</p>
@@ -25,51 +22,33 @@
 
 <script>
 import { reactive, provide } from 'vue';
-import CitySelector from './CitySelector.vue'
+import CitySelector from './CitySelector.vue';
+import CityCard from './CityCard.vue';
+// import { mapActions } from 'vuex';
 let forecast = reactive({});
 
 export default {
     components: {
-        CitySelector
+        CitySelector,
+        CityCard
+    
     },
-    data() {
-    return {
-      cities: [
-        { name: 'Denver', id: 'Denver' },
-        { name: 'Helsinki', id: 'Helsinki' },
-        { name: 'Berlin', id: 'Berlin' },
-        { name: 'Calgary', id: 'Calgary' },
-        { name: 'Doha', id: 'Doha' },
-      ],
-      activeCity: null,
-      cityData: null,
-      cityName: '',
-      forecastShown: false,
-      forecastData: null
-    }
-  },
   methods: {
-    setActiveCity(city) {
-      this.activeCity = city;
-      this.getWeatherData(this.activeCity);
-      
-      this.forecastShown = false;
-    },
-    getWeatherData(city) {
-      fetch('http://api.weatherapi.com/v1/forecast.json?key=e85990e0dbe94f858c583246213112&q=' + city + '&days=3&aqi=no&alerts=no')
-      .then(function(resp) { return resp.json() })
-      .then(data => {
-        console.log(data);
-        this.cityData = data;
-        this.cityName = city;
-        Object.assign(forecast, data.forecast.forecastday);
+    addCity(name) {
+      this.$store.dispatch('setCurrentCity', name).then(() => {
+        this.$store.dispatch('setCurrentForecast', name);
       })
-      .catch(function(error) {
-        console.log(error);
-      });
     },
     toggleShown() {
       this.forecastShown = !this.forecastShown;
+    }
+  },
+  computed: {
+    cities() {
+      return this.$store.getters.getCityList;
+    },
+    forecast() {
+      return this.$store.getters.getForecast;
     }
   },
   setup() {
