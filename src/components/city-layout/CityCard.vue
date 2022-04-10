@@ -1,8 +1,8 @@
 <template>
     <section>
         <div class="card-container">
-            <div class="row row-1">
-                <p class="city"> {{ name }} <img class="country" :src="countries[cityData.location.country]"> </p>
+            <div class="row row-1"> 
+                <p class="city"> {{ name }} <img class="country" :src="$store.state.countries[cityData.location.country]"> </p>
                 <div 
                     class="image"
                     :class="weatherClass"
@@ -25,29 +25,26 @@
             </div>
         </div>
           <div>
-            <!-- <button 
-                v-show="activeCity" 
-                @click="$emit('toggle-forecast')"
+            <button 
+                v-show="$store.state.currentCity" 
+                @click="toggleThreeDay"
                 class="showForecast"
-                :class="{active: forecastShown}" 
-            >Show 3-Day Forecast</button> -->
-            <!-- <div>
-                <city-forecast 
-                    v-if="forecastShown" 
-                    :city="activeCity"
-                />
-            </div> -->
+                :class="{active: $store.state.forecastShown}" 
+            >Show 3-Day Forecast</button>
+            <div v-if="$store.state.threeDayShown" >
+                <city-forecast />
+            </div>
         </div>
     </section>
 </template>
 
 <script>
-// import CityForecast from './CityForecast.vue';
+import CityForecast from './CityForecast.vue';
 
 export default {
-    // components: {
-    //     CityForecast
-    // },
+    components: {
+        CityForecast
+    },
     props: {
         name: {
             type: String,
@@ -59,17 +56,15 @@ export default {
         },
 
     },
-    emits: ['toggle-forecast'],
+    methods: {
+        toggleThreeDay() {
+            this.$store.dispatch('showThreeDay');
+        }
+    },
     data() {
         return {
             showForecast: this.forecastShown,
-             countries: {
-                 'United States of America': 'https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/JuUFwILzQRu17HpVNfqY_us.png',
-                 'Canada': 'https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/Y6eqALA6RUyxPwE5nKwM_canada.png',
-                 'Qatar': 'https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/kWGQGoT9SbaiKEYSf9i3_qatar.png',
-                 'Germany': 'https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/xphgSoCBRgy9KV0KOZRp_germany.png',
-                 'Finland': 'https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/HakTuytR49TKez4i38Qw_finland.png'
-             }
+             
         }
     },
     computed: {

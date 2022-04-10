@@ -1,9 +1,9 @@
 <template>
     <section>
-        <p>3-Day Forecast for {{city}}</p>
+        <p>3-Day Forecast for {{$store.state.currentCity}}</p>
         <div class="forecast-container">
             <forecast-card 
-                v-for="dayForecast in forecastData"
+                v-for="dayForecast in $store.state.threeDayForecast"
                 :key="dayForecast.id"
                 :id="dayForecast.id"
                 :date="dayForecast.date"
@@ -23,19 +23,12 @@ export default {
     components: {
         ForecastCard
     },
-    data() {
-        return {
-            currentCity: this.city,
-            forecast: null
-        }
-    },
     props: {
         city: {
             type: String,
             required: true
         }
     },
-    inject: ['forecastData'],
 }
 </script>
 
