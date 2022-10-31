@@ -1,16 +1,16 @@
 <template>
     <section>
-        <div class="forecast-card-container">
-            <p class="date">{{ handleDate }}</p>
-            <p><strong>Forecast:</strong> {{ forecast }}</p>
-            <div class="forecast-icon" :class="forecastClass">&nbsp;</div>
+        <div class="forecast-card-container mx-2 mb-5">
+            <p class="date bg-purple text-white py-1">{{ handleDate }}</p>
+            <p class="mt-2"><strong>Forecast:</strong> {{ forecast }}</p>
+            <div class="forecast-icon bg-contain bg-no-repeat bg-center my-2" :class="forecastClass">&nbsp;</div>
             <p><strong>Temperature:</strong> {{ temp }}°</p>
-            <div class="set-container">
-                <div class="sunrise-container set-sub-container">
+            <div class="set-container flex justify-center items-start my-3">
+                <div class="sunrise-container set-sub-container flex justify-center items-center">
                     <img class="sunrise set-icon" src="https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/04MIVE9CSVSGQZt49knl_sun.png">
                     <p class="time"> {{ sunrise }} </p>
                 </div>
-                <div class="sunset-container set-sub-container">
+                <div class="sunset-container set-sub-container flex justify-center items-center">
                     <img class="sunset set-icon" src="https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/xT4oZeOQNedZVOuypAlv_moon.png">
                     <p class="time"> {{ sunset }} </p>
                 </div>
@@ -79,25 +79,10 @@ export default {
 <style scoped>
     .forecast-card-container {
         border: 1px solid rgba(0,0,0,.5);
-        margin: 0 5px;
         width: 250px;
     }
 
-    .forecast-card-container p {
-        margin: 5px 0;
-    }
-
-    .forecast-card-container .date {
-        background-color: #9966ff;
-        color: #fff;
-        margin: 0;
-        padding: 5px 0;
-    }
-
     .forecast-icon {
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
         height: 50px;
     }
 
@@ -121,16 +106,8 @@ export default {
         background-image: url(https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/kz6VXYsYR0WLDSduRST9_fog.png)
     }
 
-    .set-container,
-    .set-sub-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
     .set-icon {
         height: 20px;
-        width: auto;
         margin: 0 5px 0 10px;
     }
 </style>

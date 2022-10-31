@@ -1,7 +1,7 @@
 <template>
     <section>
-        <p>3-Day Forecast for {{$store.state.currentCity}}</p>
-        <div class="forecast-container">
+        <p class="instruction-text">3-Day Forecast for {{$store.state.currentCity}}</p>
+        <div class="forecast-container flex justify-center items-start">
             <forecast-card 
                 v-for="dayForecast in $store.state.threeDayForecast"
                 :key="dayForecast.id"
@@ -33,9 +33,7 @@ export default {
 </script>
 
 <style scoped>
-    .forecast-container {
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
+    .instruction-text {
+        margin: 20px 0 10px 0;
     }
 </style>

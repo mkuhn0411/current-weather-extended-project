@@ -6,6 +6,8 @@ const store = createStore({
             currentCity: null,
             currentForecast: null,
             threeDayForecast: null,
+            searchedCity: null,
+            searchCityInvalid: false,
             threeDayShown: false,
             forecastShown: false,
             cities: [
@@ -28,30 +30,50 @@ const store = createStore({
         setCurrentCity(state, payload) {
             state.currentCity = payload;
         },
+        searchForCity(state, payload) {
+            state.searchedCity = payload;
+        },
+        checkCityValid(state, payload) {
+            state.searchCityInvalid = payload;
+        },
         setCurrentForecast(state, payload) {
             console.log(payload)
+            // state.searchCityInvalid = false;
             state.currentForecast = payload;
             state.threeDayForecast = payload.forecast.forecastday;
             state.threeDayShown = false;
         },
         showThreeDay(state) {
             state.threeDayShown = !state.threeDayShown;
-            console.log(state.threeDayShown)
         }
     },
     actions: {
         showThreeDay(context, payload) {
             context.commit('showThreeDay', payload);
-            console.log(this.state.threeDayForecast)
+        },
+        searchForCity(context, payload) {
+            context.commit('searchForCity', payload);
+        },
+        checkCityValid(context, payload) {
+            context.commit('checkCityValid', payload);
         },
         setCurrentCity(context, payload) {
             context.commit('setCurrentCity', payload);
         },
-        async setCurrentForecast(state, payload) {
-            const gif = await fetch('http://api.weatherapi.com/v1/forecast.json?key=e85990e0dbe94f858c583246213112&q=' + payload + '&days=3&aqi=no&alerts=no')
-            const g = await gif.json();
-            state.commit('setCurrentForecast', g);
-            
+        setCurrentForecast(state, payload) {
+            fetch('http://api.weatherapi.com/v1/forecast.json?key=e85990e0dbe94f858c583246213112&q=' + payload + '&days=3&aqi=no&alerts=no').then((response) => {
+                if (response.ok) {
+                  return response.json();
+                }
+                throw new Error('Something went wrong');
+              })
+              .then((responseJson) => {
+                state.commit('setCurrentForecast', responseJson);
+              })
+              .catch((error) => {
+                console.log(error)
+                state.commit('checkCityValid', true);
+              });
         },
     },
     getters: {

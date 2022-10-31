@@ -1,5 +1,6 @@
 <template>
-    <div class="city-container">
+    <div class="city-container border-b flex flex-col justify-center">
+      <div class="city-selector-container flex justify-center items-center">
         <city-selector
           :class="{active: $store.state.currentCity === city.name}" 
           @click="addCity(city.name)" 
@@ -7,16 +8,20 @@
           :key="city.key"
           :name="city.name"
         />
+      </div>
+      <div class="search-container flex flex-col justify-center items-center">
+        <city-search />
+      </div>
     </div>
-    <div v-if="$store.state.currentCity" class="city-card">
+    <div v-if="$store.state.currentCity && !$store.state.searchCityInvalid" class="city-card">
       <city-card 
           v-if="forecast"
           :cityData="forecast"
           :name="$store.state.currentCity"
       />
     </div>
-    <div v-else>
-        <p>Please select a city</p>
+    <div v-else class="mt-3">
+        <p pt-2>Please select or search for a city</p>
     </div> 
 </template>
 
@@ -24,13 +29,15 @@
 import { reactive, provide } from 'vue';
 import CitySelector from './CitySelector.vue';
 import CityCard from './CityCard.vue';
+import CitySearch from './CitySearch.vue';
 // import { mapActions } from 'vuex';
 let forecast = reactive({});
 
 export default {
     components: {
         CitySelector,
-        CityCard
+        CityCard,
+        CitySearch
     
     },
   methods: {
@@ -58,22 +65,6 @@ export default {
 </script>
 
 <style scoped>
-.city-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  list-style-type: none;
-}
-
-.city-container > p {
-  margin: 0 5px;
-  background-color: #2596be;
-  border-radius: 40px;
-  color: #fff;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
 .city-container > p.active {
   background-color: #15546a;
 }

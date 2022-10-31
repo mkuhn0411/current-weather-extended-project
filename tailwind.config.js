@@ -7,7 +7,8 @@ module.exports = {
       colors: {
         'medium-blue': '#0099ff',
         'dark-blue': '#004d80',
-        'purple': '#8533ff'
+        'purple': '#8533ff',
+        'error-red': '#ff4d4d'
       },
     },
   },
