@@ -9,7 +9,6 @@
 import TheHeader from './components/layouts/TheHeader.vue';
 import CityLayout from './components/city-layout/CityLayout.vue';
 
-
 export default {
   name: 'App',
   components: {
