@@ -10,10 +10,10 @@
             </div>
             <div class="row row-2 flex items-start justify-center flex-col flex-1">
                 <p><strong> Current Forecast:</strong> {{ cityData.current.condition.text }} </p>
-                <p><strong> Current Temperature:</strong> {{ cityData.current.temp_f }}° </p>
-                <p><strong> Feels Like:</strong> {{ cityData.current.feelslike_f }}° </p>
+                <p><strong> Current Temperature:</strong> {{ cityData.current.temp_f }}°F </p>
+                <p><strong> Feels Like:</strong> {{ cityData.current.feelslike_f }}°F </p>
                 <div class="additional-info-container flex justify-center justify-center items-center">
-                    <div class="time-container set-sub-container flex justify-center justify-center items-center">
+                    <div class="time-container set-sub-container flex justify-center justify-center items-center mr-3">
                         <img class="additional-icon" src="https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/6kh83VyqRxS33wdzf6x5_time.png">
                         <p class="additional-info my-5 time">{{ cityData.location.localtime.split(' ')[1] }}&nbsp;{{ checkDaytime }}</p>
                     </div>

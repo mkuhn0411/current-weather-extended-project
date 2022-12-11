@@ -4,7 +4,7 @@
             <p class="date bg-purple text-white py-1">{{ handleDate }}</p>
             <p class="mt-2"><strong>Forecast:</strong> {{ forecast }}</p>
             <div class="forecast-icon bg-contain bg-no-repeat bg-center my-2" :class="forecastClass">&nbsp;</div>
-            <p><strong>Temperature:</strong> {{ temp }}°</p>
+            <p><strong>Temperature:</strong> {{ temp }}°F</p>
             <div class="set-container flex justify-center items-start my-3">
                 <div class="sunrise-container set-sub-container flex justify-center items-center">
                     <img class="sunrise set-icon" src="https://s3.amazonaws.com/jebbit-assets/images/GyIlxwsk/business-images/04MIVE9CSVSGQZt49knl_sun.png">

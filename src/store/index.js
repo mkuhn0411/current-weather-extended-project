@@ -37,8 +37,6 @@ const store = createStore({
             state.searchCityInvalid = payload;
         },
         setCurrentForecast(state, payload) {
-            console.log(payload)
-            // state.searchCityInvalid = false;
             state.currentForecast = payload;
             state.threeDayForecast = payload.forecast.forecastday;
             state.threeDayShown = false;
